@@ -36,14 +36,6 @@ public class PriceController {
     ) {
         PriceCriteria criteria = new PriceCriteria(brandId, productId, applicationDate);
         return priceQueryUseCase.findApplicablePrice(criteria)
-                .map(price -> new PriceResponse(
-                        price.brandId(),
-                        price.productId(),
-                        price.priceList(),
-                        price.startDate(),
-                        price.endDate(),
-                        price.price(),
-                        price.currency()
-                ));
+                .map(PriceResponse::from);
     }
 }

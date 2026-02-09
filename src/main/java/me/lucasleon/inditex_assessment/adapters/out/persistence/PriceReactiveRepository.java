@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public interface PriceReactiveRepository extends ReactiveCrudRepository<PriceEntity, Long> {
 
     @Query("""
-            SELECT brand_id, product_id, price_list, priority, start_date, end_date, price, currency
+            SELECT id, brand_id, product_id, price_list, priority, start_date, end_date, price, currency
             FROM prices
             WHERE brand_id = :brandId
               AND product_id = :productId

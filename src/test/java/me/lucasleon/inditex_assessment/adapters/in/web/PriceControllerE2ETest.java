@@ -1,6 +1,7 @@
 package me.lucasleon.inditex_assessment.adapters.in.web;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -10,6 +11,15 @@ class PriceControllerE2ETest {
 
     @LocalServerPort
     private int port;
+
+    private WebTestClient webTestClient;
+
+    @BeforeEach
+    void setUpClient() {
+        webTestClient = WebTestClient.bindToServer()
+                .baseUrl("http://localhost:" + port)
+                .build();
+    }
 
     @Test
     void test1_2020_06_14_10_00() {
@@ -37,15 +47,8 @@ class PriceControllerE2ETest {
     }
 
     private void assertPrice(String applicationDate, long brandId, long productId, long expectedPriceList, double expectedPrice) {
-        WebTestClient webTestClient = WebTestClient.bindToServer()
-                .baseUrl("http://localhost:" + port)
-                .build();
-
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .scheme("http")
-                        .host("localhost")
-                        .port(port)
                         .path("/api/prices")
                         .queryParam("applicationDate", applicationDate)
                         .queryParam("productId", productId)
