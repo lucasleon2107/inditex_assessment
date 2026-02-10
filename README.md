@@ -30,6 +30,11 @@ Servicio Spring Boot WebFlux para consultar el precio aplicable de un producto p
 }
 ```
 
+**Ejemplo curl**
+```bash
+curl "http://localhost:8080/api/prices?applicationDate=2020-06-14T10:00:00&productId=35455&brandId=1"
+```
+
 **Errores**
 - `400` parametros invalidos: respuesta estandar de Spring (RFC 7807).
 - `404` sin precio aplicable: respuesta `PriceErrorResponse`.
